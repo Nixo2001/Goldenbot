@@ -1,0 +1,14 @@
+{
+  "chat_id": "",
+  "modalita": "reale",
+  "attivi": ["EURUSD=X", "GBPUSD=X"],
+  "risk_pct": 1.0,
+  "max_segnali_giorno": 6,
+  "score_minimo": 78,
+  "payout_min": 78,
+  "expiry_reale_min": 15,
+  "expiry_otc_min": 5,
+  "finestre": [["09:00", "11:00"], ["14:30", "17:30"]],
+  "stop_dopo_perdite": 3,
+  "livello2": { "gpr": true, "gdelt": true }
+}
