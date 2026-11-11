@@ -1,0 +1,35 @@
+name: binbot
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: binbot
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Diagnostica
+        run: |
+          ls -la
+          python -c "import json;json.load(open('config.json',encoding='utf-8'));print('CONFIG_OK')"
+      - name: Installa librerie
+        run: pip install -r requirements.txt
+      - name: Esegui bot
+        run: python goldsignal.py --once
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      - name: Salva stato
+        run: |
+          git config user.name bot
+          git config user.email bot@local
+          git add -A
+          git commit -m stato || true
+          git push || true
